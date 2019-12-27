@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TestAlertPatrocinio</string>
+    <string name="title_modal">Esta App No Consume tus Datos</string>
+    <string name="content_modal">No volver a mostrar el mensaje</string>
+    <string name="ok_modal">OK, Enterado</string>
+
+    <!-- valores para SharedPreference -->
+    <string name="shared_preferences_patrocinio_alert" translatable="false">sharedAlertPatrocinio</string>
+    <string name="key_patrocinio_alert" translatable="false">ocultaAlertPatrocinio</string>
 </resources>

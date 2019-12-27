@@ -10,43 +10,38 @@ import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements DialogPatrocinioListener {
 
-    SharedPreferences prefPatrocinio;
-    SharedPreferences.Editor editorPatrocinio;
-
-    boolean dPatrocinio;
-    boolean checkPat = false;
-
-    private static final String SET_ALERT = "SET_ALERT_PATROCINIO";
-    private static final String OCULTA_ALERT = "OCULTA_ALERT_PATROCINIO";
-
+    private SharedPreferences prefPatrocinio;
+    boolean patCheckboxResult = false;
     private PatrocinioAlert alertCancelar;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mContext = MainActivity.this;
-
-        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //valores utilizados para connectivityManager quien contiene la informacion de estado de connexion a red
+        Context mContext = MainActivity.this;
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = null;
-        if (cm != null) {
-            activeNetwork = cm.getActiveNetworkInfo();
+        if (connectivityManager != null) {
+            activeNetwork = connectivityManager.getActiveNetworkInfo();
         }
+        if (activeNetwork != null)
+            if(activeNetwork.isConnectedOrConnecting()){
+                int networkType = activeNetwork.getType();
 
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting())
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                prefPatrocinio = getSharedPreferences(SET_ALERT, Context.MODE_PRIVATE);
-                dPatrocinio = prefPatrocinio.getBoolean(OCULTA_ALERT, false);
+                if (networkType == ConnectivityManager.TYPE_MOBILE) {
+                    prefPatrocinio = getSharedPreferences(getString(R.string.shared_preferences_patrocinio_alert), Context.MODE_PRIVATE);
+                    boolean resultPatrocinio = prefPatrocinio.getBoolean(getString(R.string.key_patrocinio_alert), false);
 
-                if (!dPatrocinio)
-                    showAlert();
+                    if (!resultPatrocinio)
+                        showAlert();
+                }
             }
     }
 
-    private void showAlert() { //muestra de alert al dar clic en cancelacion
+    //muestra de alert al dar clic en cancelacion
+    private void showAlert() {
         alertCancelar = new PatrocinioAlert();
 
         alertCancelar.setCancelable(false);
@@ -55,11 +50,11 @@ public class MainActivity extends AppCompatActivity implements DialogPatrocinioL
 
     @Override
     public void onPositive(DialogFragment dialog) {
-        if (checkPat) {
-            prefPatrocinio = getSharedPreferences(SET_ALERT, Context.MODE_PRIVATE);
-            editorPatrocinio = prefPatrocinio.edit();
+        if (patCheckboxResult) {
+            prefPatrocinio = getSharedPreferences(getString(R.string.shared_preferences_patrocinio_alert), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editorPatrocinio = prefPatrocinio.edit();
 
-            editorPatrocinio.putBoolean(OCULTA_ALERT, true);
+            editorPatrocinio.putBoolean(getString(R.string.key_patrocinio_alert), patCheckboxResult);
             editorPatrocinio.apply();
         }
 
@@ -68,6 +63,6 @@ public class MainActivity extends AppCompatActivity implements DialogPatrocinioL
 
     @Override
     public void onCheck(boolean check) {
-        checkPat = check;
+        patCheckboxResult = check;
     }
 }

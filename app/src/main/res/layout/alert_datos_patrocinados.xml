@@ -15,9 +15,9 @@
         android:padding="10dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Las Apps de Bancomer No Consumen tus Datos"
+        android:text="@string/title_modal"
         android:textAlignment="center"
-        android:textSize="40dp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/ln_check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,8 +38,6 @@
         <CheckBox
             android:id="@+id/ch_mostrar_patrocinio"
             android:layout_width="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="1dp"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:paddingEnd="1dp" />
@@ -48,9 +46,8 @@
             android:id="@+id/tv_mostrar_mensaje_patrocinio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="No volver a mostrar el mensaje"
-            android:textSize="15dp"
+            android:text="@string/content_modal"
+            android:textSize="15sp"
             android:layout_marginStart="10dp" />
 
     </LinearLayout>
@@ -62,8 +59,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="1dp"
         android:gravity="center"
-        android:text="Ok, Enterado"
-        android:textSize="15dp"
+        android:text="@string/ok_modal"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"

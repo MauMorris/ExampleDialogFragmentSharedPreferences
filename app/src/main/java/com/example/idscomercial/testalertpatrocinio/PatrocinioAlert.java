@@ -20,11 +20,13 @@ public class PatrocinioAlert extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try { // Verifica que la actividad host implementa la interfaz
-            mListener = (DialogPatrocinioListener) activity; //instancia el Listener para pasar eventos
+        // Verifica que la actividad host implementa la interfaz
+        try {
+            //instancia el Listener para pasar eventos
+            mListener = (DialogPatrocinioListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() //la actividad no implementa la interfaz, error
-                    + " must implement NoticeDialogListener");
+            //la actividad no implementa la interfaz, error
+            throw new ClassCastException(activity.toString() + " must implement NoticeDialogListener");
         }
     }
 
@@ -37,8 +39,8 @@ public class PatrocinioAlert extends DialogFragment {
         final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setView(alertLayout);
 
-        AppCompatButton ok = (AppCompatButton) alertLayout.findViewById(R.id.btn_ok_patrocinio);
-        AppCompatCheckBox chCancel = (AppCompatCheckBox) alertLayout.findViewById(R.id.ch_mostrar_patrocinio);
+        AppCompatButton ok = alertLayout.findViewById(R.id.btn_ok_patrocinio);
+        AppCompatCheckBox chCancel = alertLayout.findViewById(R.id.ch_mostrar_patrocinio);
 
         ok.setOnClickListener(positiveClic);
         chCancel.setOnCheckedChangeListener(checkClic);
